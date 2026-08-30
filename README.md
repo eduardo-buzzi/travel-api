@@ -226,7 +226,7 @@ Também foram realizados testes de:
 
 ---
 
-# 10. Estrutura do projeto
+# 10. Estrutura
 
 ```text
 travel-api
@@ -251,7 +251,7 @@ travel-api
 
 ---
 
-# Considerações finais
+# Conclusão
 
 Este projeto foi desenvolvido como parte do Desafio 1 da disciplina de Desenvolvimento de Sistemas Web.
 
