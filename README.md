@@ -1,30 +1,40 @@
-# Projeto desenvolvido para o Desafio 1 da disciplina de Desenvolvimento de Sistemas Web.
+# Travel API
 
-A proposta do trabalho é desenvolver uma API REST para uma agência de viagens, permitindo o gerenciamento de destinos turísticos.
+Projeto desenvolvido para o Desafio 1 da disciplina de Desenvolvimento de Sistemas Web.
 
-## 1. Visão geral do problema
+O objetivo deste projeto é desenvolver uma API REST utilizando Java e Spring Boot para gerenciar destinos turísticos de uma agência de viagens.
 
-A agência de viagens já possui um site e um sistema interno de reservas, mas pretende ampliar seus serviços digitais e permitir que outros sistemas possam utilizar informações sobre seus destinos turísticos.
+---
 
-Por isso, foi desenvolvida uma API REST que permite cadastrar, consultar, atualizar, avaliar e excluir destinos de viagem.
+# 1. Sobre o projeto
 
-Nesta primeira versão, os dados são armazenados em memória, sem utilização de banco de dados.
+A agência de viagens já possui um site e um sistema interno de reservas, mas deseja disponibilizar uma API para que outras aplicações possam acessar as informações dos destinos turísticos.
 
-## 2. Funcionalidades
+Nesta primeira versão, a API foi desenvolvida utilizando armazenamento em memória, sem banco de dados, conforme solicitado no desafio.
 
-A API permite:
+Com ela é possível cadastrar, consultar, atualizar, avaliar e excluir destinos de viagem.
+
+---
+
+# 2. Funcionalidades
+
+A API possui as seguintes funcionalidades:
 
 - Cadastrar destinos de viagem;
-- Listar todos os destinos;
+- Listar todos os destinos cadastrados;
 - Pesquisar destinos por nome;
 - Pesquisar destinos por localização;
-- Visualizar os detalhes de um destino;
+- Buscar um destino pelo ID;
 - Atualizar informações de um destino;
 - Registrar avaliações;
-- Recalcular a média das avaliações;
+- Recalcular automaticamente a média das avaliações;
 - Excluir destinos.
 
-## 3. Tecnologias utilizadas
+---
+
+# 3. Tecnologias utilizadas
+
+Durante o desenvolvimento foram utilizadas as seguintes tecnologias:
 
 - Java 17
 - Spring Boot
@@ -34,9 +44,11 @@ A API permite:
 - GitHub
 - Postman
 
-## 4. Arquitetura
+---
 
-Foi utilizada uma arquitetura dividida em camadas:
+# 4. Arquitetura do projeto
+
+O projeto foi organizado em camadas para facilitar a organização e manutenção do código.
 
 ```text
 Controller
@@ -46,164 +58,138 @@ Service
 Model
 ```
 
-Essa divisão foi utilizada para deixar o projeto mais organizado e facilitar futuras alterações.
-
 ### Controller
 
-A camada Controller recebe as requisições HTTP e retorna as respostas da API.
-
-No projeto, ela é responsável pelos endpoints relacionados aos destinos.
+Recebe as requisições HTTP e encaminha cada operação para a camada de serviço.
 
 ### Service
 
-A camada Service possui a lógica principal da aplicação.
-
-É nela que são realizadas operações como:
-
-- cadastro;
-- pesquisa;
-- atualização;
-- avaliação;
-- exclusão.
-
-A lógica foi separada do Controller para facilitar a organização e manutenção do código.
+Contém toda a lógica da aplicação, como cadastro, pesquisa, atualização, exclusão e cálculo da média das avaliações.
 
 ### Model
 
-A camada Model representa os dados utilizados pela aplicação.
+Representa os objetos utilizados pela aplicação.
 
-As principais classes são:
+Neste projeto foram criadas as classes:
 
-- `Destino`
-- `NotaAvaliacao`
+- Destino
+- NotaAvaliacao
 
-## 5. Armazenamento dos dados
+---
 
-Nesta primeira versão não foi utilizado banco de dados.
+# 5. Armazenamento dos dados
 
-Os destinos são armazenados temporariamente em uma lista (`ArrayList`) dentro da aplicação.
+Os dados são armazenados temporariamente em uma `ArrayList`, sem utilização de banco de dados.
 
-Essa escolha atende ao objetivo do desafio, que permite o armazenamento temporário em memória.
+Essa abordagem foi adotada porque o desafio solicita apenas uma primeira versão funcional da API utilizando armazenamento em memória.
 
-Em uma futura versão, o projeto poderá utilizar um banco de dados para manter os dados armazenados mesmo depois que a aplicação for encerrada.
+Como melhoria futura, o projeto poderá utilizar um banco de dados para armazenar os dados de forma permanente.
 
-## 6. Endpoints
+---
+
+# 6. Endpoints
 
 | Método | Endpoint | Descrição |
-|---|---|---|
+|---------|----------|-----------|
 | GET | `/destinos` | Lista todos os destinos |
 | GET | `/destinos/{id}` | Busca um destino pelo ID |
 | GET | `/destinos?nome=Gramado` | Pesquisa por nome |
 | GET | `/destinos?localizacao=Santa Catarina` | Pesquisa por localização |
 | POST | `/destinos` | Cadastra um novo destino |
 | PUT | `/destinos/{id}` | Atualiza um destino |
-| PATCH | `/destinos/{id}/avaliacao` | Adiciona uma avaliação |
+| PATCH | `/destinos/{id}/avaliacao` | Registra uma avaliação |
 | DELETE | `/destinos/{id}` | Exclui um destino |
 
-## 7. Exemplos de requisições
+---
 
-### 7.1 Cadastrar destino
+# 7. Exemplos de requisições
+
+## Cadastrar destino
 
 ```http
 POST /destinos
 ```
 
-JSON:
-
 ```json
 {
-    "nome": "Gramado",
-    "localizacao": "Rio Grande do Sul",
-    "descricao": "Cidade turística conhecida pelo clima europeu.",
-    "hotelDisponivel": true,
-    "atividades": "Natal Luz, Rua Coberta e Lago Negro"
+  "nome": "Gramado",
+  "localizacao": "Rio Grande do Sul",
+  "descricao": "Cidade turística conhecida pelo clima europeu.",
+  "hotelDisponivel": true,
+  "atividades": "Natal Luz, Rua Coberta e Lago Negro"
 }
 ```
 
-### 7.2 Listar destinos
+## Listar destinos
 
 ```http
 GET /destinos
 ```
 
-### 7.3 Pesquisar por nome
+## Pesquisar por nome
 
 ```http
 GET /destinos?nome=Gramado
 ```
 
-### 7.4 Pesquisar por localização
+## Pesquisar por localização
 
 ```http
 GET /destinos?localizacao=Santa Catarina
 ```
 
-### 7.5 Buscar por ID
+## Buscar por ID
 
 ```http
 GET /destinos/1
 ```
 
-### 7.6 Atualizar destino
+## Atualizar destino
 
 ```http
 PUT /destinos/1
 ```
 
-JSON:
-
 ```json
 {
-    "nome": "Gramado",
-    "localizacao": "Rio Grande do Sul",
-    "descricao": "Destino turístico do sul do Brasil.",
-    "hotelDisponivel": true,
-    "atividades": "Natal Luz, Rua Coberta e Lago Negro"
+  "nome": "Gramado",
+  "localizacao": "Rio Grande do Sul",
+  "descricao": "Destino turístico do sul do Brasil.",
+  "hotelDisponivel": true,
+  "atividades": "Natal Luz, Rua Coberta e Lago Negro"
 }
 ```
 
-### 7.7 Registrar avaliação
+## Registrar avaliação
 
 ```http
 PATCH /destinos/1/avaliacao
 ```
 
-JSON:
-
 ```json
 {
-    "nota": 5
+  "nota": 5
 }
 ```
 
-A cada nova avaliação, a quantidade de avaliações é atualizada e a média do destino é recalculada.
+As notas aceitas vão de **1 a 5**. Sempre que uma nova avaliação é registrada, a média do destino é recalculada automaticamente.
 
-As notas permitidas estão entre 1 e 5.
-
-### 7.8 Excluir destino
+## Excluir destino
 
 ```http
 DELETE /destinos/1
 ```
 
-## 8. Respostas da API
+---
 
-A API utiliza códigos HTTP de acordo com o resultado da operação.
+# 8. Como executar o projeto
 
-- `200 OK` - requisição realizada com sucesso;
-- `201 Created` - destino criado com sucesso;
-- `204 No Content` - destino excluído com sucesso;
-- `400 Bad Request` - dados inválidos;
-- `404 Not Found` - destino não encontrado.
+## Pré-requisitos
 
-## 9. Como executar o projeto
+- Java 17
+- Visual Studio Code ou IntelliJ IDEA
 
-### Pré-requisitos
-
-- Java 17;
-- Visual Studio Code ou IntelliJ IDEA.
-
-### Execução pelo terminal
+## Executando o projeto
 
 Abra o terminal na pasta do projeto e execute:
 
@@ -211,44 +197,51 @@ Abra o terminal na pasta do projeto e execute:
 .\mvnw.cmd spring-boot:run
 ```
 
-Depois que a aplicação iniciar, ela estará disponível em:
+Após iniciar a aplicação, ela ficará disponível em:
 
 ```text
 http://localhost:8080
 ```
 
-## 10. Como testar
+---
 
-Os endpoints podem ser testados utilizando o Postman.
+# 9. Como testar
 
-Exemplo:
+Todos os endpoints foram testados utilizando o **Postman** durante o desenvolvimento do projeto e apresentaram o funcionamento esperado.
+
+Exemplo de requisição:
 
 ```text
 GET http://localhost:8080/destinos
 ```
 
-Também podem ser testadas as operações de cadastro, pesquisa, atualização, avaliação e exclusão.
+Também foram realizados testes de:
 
-## 11. Estrutura do projeto
+- cadastro de destinos;
+- pesquisa por nome e localização;
+- busca por ID;
+- atualização de informações;
+- registro de avaliações;
+- exclusão de destinos.
+
+---
+
+# 10. Estrutura do projeto
 
 ```text
 travel-api
 │
 ├── src
 │   └── main
-│       └── java\br
-│               └── com \ travelapi
-│                       │
+│       └── java/br
+│               └── com/travelapi
 │                       ├── controller
 │                       │   └── DestinoController.java
-│                       │
 │                       ├── model
 │                       │   ├── Destino.java
 │                       │   └── NotaAvaliacao.java
-│                       │
 │                       ├── service
 │                       │   └── DestinoService.java
-│                       │
 │                       └── TravelApiApplication.java
 │
 ├── pom.xml
@@ -256,4 +249,10 @@ travel-api
 └── .gitignore
 ```
 
-## Projeto desenvolvido para o Desafio 1 - Desenvolvimento de Sistemas Web. 
+---
+
+# Considerações finais
+
+Este projeto foi desenvolvido como parte do Desafio 1 da disciplina de Desenvolvimento de Sistemas Web.
+
+Durante o desenvolvimento foi possível aplicar conceitos de APIs REST utilizando Java e Spring Boot, organizando o projeto em camadas e implementando as principais operações para gerenciamento de destinos turísticos.
