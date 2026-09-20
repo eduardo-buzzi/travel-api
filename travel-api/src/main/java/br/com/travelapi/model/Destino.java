@@ -1,8 +1,17 @@
 package br.com.travelapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Destino {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String localizacao;
     private String descricao;
@@ -16,6 +25,7 @@ public class Destino {
 
     public Destino(Long id, String nome, String localizacao, String descricao,
                     boolean hotelDisponivel, String atividades) {
+
         this.id = id;
         this.nome = nome;
         this.localizacao = localizacao;
